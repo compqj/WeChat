@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.UserInfo">
+    <constructor>
+      <idArg column="stuid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phoneNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="specialty" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="grade" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dormitory" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wxh" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    stuid, name, password, phoneNumber, specialty, grade, dormitory, role, status, wxh
+  </sql>
+
+    <select id="selectByWxh" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_personal_information2
+        where wxh = #{wxh,jdbcType=VARCHAR}
+    </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_personal_information2
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_personal_information2
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.UserInfo">
+    insert into t_personal_information2 (stuid, name, password, 
+      phoneNumber, specialty, grade, 
+      dormitory, role, status, 
+      wxh)
+    values (#{stuid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phonenumber,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{dormitory,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{wxh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.UserInfo">
+    insert into t_personal_information2
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuid != null">
+        stuid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber,
+      </if>
+      <if test="specialty != null">
+        specialty,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="dormitory != null">
+        dormitory,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="wxh != null">
+        wxh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuid != null">
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="specialty != null">
+        #{specialty,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="dormitory != null">
+        #{dormitory,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="wxh != null">
+        #{wxh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.UserInfo">
+    update t_personal_information2
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="specialty != null">
+        specialty = #{specialty,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="dormitory != null">
+        dormitory = #{dormitory,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="wxh != null">
+        wxh = #{wxh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.UserInfo">
+    update t_personal_information2
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      specialty = #{specialty,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      dormitory = #{dormitory,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      wxh = #{wxh,jdbcType=VARCHAR}
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+</mapper>

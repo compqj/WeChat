@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.RepairsMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.Repairs">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="patients_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="contact" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="symptom" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dormitroy" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="DOMAINID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="APPLICATIONID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="FORMID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="FORMNAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AUTHOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATED" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="AUTHOR_DEPT_INDEX" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="LASTMODIFIER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="LASTMODIFIED" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="VERSIONS" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ISTMP" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <arg column="PARENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STATE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STATEINT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="STATELABEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STATELABELINFO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AUDITORNAMES" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AUDITORLIST" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AUDITUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AUDITDATE" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="LASTFLOWOPERATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PREVAUDITNODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PREVAUDITUSER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="OPTIONITEM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SIGN" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COAUDITORLIST" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, studid, status, patients_name, contact, symptom, dormitroy, CREATE_USER, 
+    CREATE_TIME, DOMAINID, APPLICATIONID, FORMID, FORMNAME, AUTHOR, CREATED, AUTHOR_DEPT_INDEX, 
+    LASTMODIFIER, LASTMODIFIED, VERSIONS, ISTMP, PARENT, STATE, STATEINT, STATELABEL, 
+    STATELABELINFO, AUDITORNAMES, AUDITORLIST, AUDITUSER, AUDITDATE, LASTFLOWOPERATION, 
+    PREVAUDITNODE, PREVAUDITUSER, OPTIONITEM, SIGN, COAUDITORLIST
+  </sql>
+
+    <select id="selectByTime" parameterType="java.util.Date"  resultType="Integer">
+      select
+        COUNT(id)
+        from t_repairs
+        where  CREATE_TIME = #{createTime,jdbcType=DATE}
+    </select>
+
+    <select id="selectByBx" parameterType="java.lang.String"  resultMap="BaseResultMap">
+      select
+        *
+        from t_repairs
+        where  studid = #{studid,jdbcType=VARCHAR}
+        AND
+        status = #{status,jdbcType=VARCHAR}
+    </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_repairs
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_repairs
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.Repairs">
+    insert into t_repairs (id, code, studid, 
+      status, patients_name, contact, 
+      symptom, dormitroy, CREATE_USER, 
+      CREATE_TIME, DOMAINID, APPLICATIONID, 
+      FORMID, FORMNAME, AUTHOR, 
+      CREATED, AUTHOR_DEPT_INDEX, LASTMODIFIER, 
+      LASTMODIFIED, VERSIONS, ISTMP, 
+      PARENT, STATE, STATEINT, 
+      STATELABEL, STATELABELINFO, AUDITORNAMES, 
+      AUDITORLIST, AUDITUSER, AUDITDATE, 
+      LASTFLOWOPERATION, PREVAUDITNODE, PREVAUDITUSER, 
+      OPTIONITEM, SIGN, COAUDITORLIST
+      )
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{studid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{patientsName,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{symptom,jdbcType=VARCHAR}, #{dormitroy,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=DATE}, #{domainid,jdbcType=VARCHAR}, #{applicationid,jdbcType=VARCHAR}, 
+      #{formid,jdbcType=VARCHAR}, #{formname,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{created,jdbcType=DATE}, #{authorDeptIndex,jdbcType=VARCHAR}, #{lastmodifier,jdbcType=VARCHAR}, 
+      #{lastmodified,jdbcType=DATE}, #{versions,jdbcType=INTEGER}, #{istmp,jdbcType=DECIMAL}, 
+      #{parent,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{stateint,jdbcType=INTEGER}, 
+      #{statelabel,jdbcType=VARCHAR}, #{statelabelinfo,jdbcType=VARCHAR}, #{auditornames,jdbcType=VARCHAR}, 
+      #{auditorlist,jdbcType=VARCHAR}, #{audituser,jdbcType=VARCHAR}, #{auditdate,jdbcType=DATE}, 
+      #{lastflowoperation,jdbcType=VARCHAR}, #{prevauditnode,jdbcType=VARCHAR}, #{prevaudituser,jdbcType=VARCHAR}, 
+      #{optionitem,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{coauditorlist,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.Repairs">
+    insert into t_repairs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="studid != null">
+        studid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="patientsName != null">
+        patients_name,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="symptom != null">
+        symptom,
+      </if>
+      <if test="dormitroy != null">
+        dormitroy,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="domainid != null">
+        DOMAINID,
+      </if>
+      <if test="applicationid != null">
+        APPLICATIONID,
+      </if>
+      <if test="formid != null">
+        FORMID,
+      </if>
+      <if test="formname != null">
+        FORMNAME,
+      </if>
+      <if test="author != null">
+        AUTHOR,
+      </if>
+      <if test="created != null">
+        CREATED,
+      </if>
+      <if test="authorDeptIndex != null">
+        AUTHOR_DEPT_INDEX,
+      </if>
+      <if test="lastmodifier != null">
+        LASTMODIFIER,
+      </if>
+      <if test="lastmodified != null">
+        LASTMODIFIED,
+      </if>
+      <if test="versions != null">
+        VERSIONS,
+      </if>
+      <if test="istmp != null">
+        ISTMP,
+      </if>
+      <if test="parent != null">
+        PARENT,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="stateint != null">
+        STATEINT,
+      </if>
+      <if test="statelabel != null">
+        STATELABEL,
+      </if>
+      <if test="statelabelinfo != null">
+        STATELABELINFO,
+      </if>
+      <if test="auditornames != null">
+        AUDITORNAMES,
+      </if>
+      <if test="auditorlist != null">
+        AUDITORLIST,
+      </if>
+      <if test="audituser != null">
+        AUDITUSER,
+      </if>
+      <if test="auditdate != null">
+        AUDITDATE,
+      </if>
+      <if test="lastflowoperation != null">
+        LASTFLOWOPERATION,
+      </if>
+      <if test="prevauditnode != null">
+        PREVAUDITNODE,
+      </if>
+      <if test="prevaudituser != null">
+        PREVAUDITUSER,
+      </if>
+      <if test="optionitem != null">
+        OPTIONITEM,
+      </if>
+      <if test="sign != null">
+        SIGN,
+      </if>
+      <if test="coauditorlist != null">
+        COAUDITORLIST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="studid != null">
+        #{studid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="patientsName != null">
+        #{patientsName,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="symptom != null">
+        #{symptom,jdbcType=VARCHAR},
+      </if>
+      <if test="dormitroy != null">
+        #{dormitroy,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="domainid != null">
+        #{domainid,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationid != null">
+        #{applicationid,jdbcType=VARCHAR},
+      </if>
+      <if test="formid != null">
+        #{formid,jdbcType=VARCHAR},
+      </if>
+      <if test="formname != null">
+        #{formname,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=DATE},
+      </if>
+      <if test="authorDeptIndex != null">
+        #{authorDeptIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifier != null">
+        #{lastmodifier,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodified != null">
+        #{lastmodified,jdbcType=DATE},
+      </if>
+      <if test="versions != null">
+        #{versions,jdbcType=INTEGER},
+      </if>
+      <if test="istmp != null">
+        #{istmp,jdbcType=DECIMAL},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateint != null">
+        #{stateint,jdbcType=INTEGER},
+      </if>
+      <if test="statelabel != null">
+        #{statelabel,jdbcType=VARCHAR},
+      </if>
+      <if test="statelabelinfo != null">
+        #{statelabelinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="auditornames != null">
+        #{auditornames,jdbcType=VARCHAR},
+      </if>
+      <if test="auditorlist != null">
+        #{auditorlist,jdbcType=VARCHAR},
+      </if>
+      <if test="audituser != null">
+        #{audituser,jdbcType=VARCHAR},
+      </if>
+      <if test="auditdate != null">
+        #{auditdate,jdbcType=DATE},
+      </if>
+      <if test="lastflowoperation != null">
+        #{lastflowoperation,jdbcType=VARCHAR},
+      </if>
+      <if test="prevauditnode != null">
+        #{prevauditnode,jdbcType=VARCHAR},
+      </if>
+      <if test="prevaudituser != null">
+        #{prevaudituser,jdbcType=VARCHAR},
+      </if>
+      <if test="optionitem != null">
+        #{optionitem,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="coauditorlist != null">
+        #{coauditorlist,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Repairs">
+    update t_repairs
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="studid != null">
+        studid = #{studid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="patientsName != null">
+        patients_name = #{patientsName,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="symptom != null">
+        symptom = #{symptom,jdbcType=VARCHAR},
+      </if>
+      <if test="dormitroy != null">
+        dormitroy = #{dormitroy,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="domainid != null">
+        DOMAINID = #{domainid,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationid != null">
+        APPLICATIONID = #{applicationid,jdbcType=VARCHAR},
+      </if>
+      <if test="formid != null">
+        FORMID = #{formid,jdbcType=VARCHAR},
+      </if>
+      <if test="formname != null">
+        FORMNAME = #{formname,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        CREATED = #{created,jdbcType=DATE},
+      </if>
+      <if test="authorDeptIndex != null">
+        AUTHOR_DEPT_INDEX = #{authorDeptIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifier != null">
+        LASTMODIFIER = #{lastmodifier,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodified != null">
+        LASTMODIFIED = #{lastmodified,jdbcType=DATE},
+      </if>
+      <if test="versions != null">
+        VERSIONS = #{versions,jdbcType=INTEGER},
+      </if>
+      <if test="istmp != null">
+        ISTMP = #{istmp,jdbcType=DECIMAL},
+      </if>
+      <if test="parent != null">
+        PARENT = #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateint != null">
+        STATEINT = #{stateint,jdbcType=INTEGER},
+      </if>
+      <if test="statelabel != null">
+        STATELABEL = #{statelabel,jdbcType=VARCHAR},
+      </if>
+      <if test="statelabelinfo != null">
+        STATELABELINFO = #{statelabelinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="auditornames != null">
+        AUDITORNAMES = #{auditornames,jdbcType=VARCHAR},
+      </if>
+      <if test="auditorlist != null">
+        AUDITORLIST = #{auditorlist,jdbcType=VARCHAR},
+      </if>
+      <if test="audituser != null">
+        AUDITUSER = #{audituser,jdbcType=VARCHAR},
+      </if>
+      <if test="auditdate != null">
+        AUDITDATE = #{auditdate,jdbcType=DATE},
+      </if>
+      <if test="lastflowoperation != null">
+        LASTFLOWOPERATION = #{lastflowoperation,jdbcType=VARCHAR},
+      </if>
+      <if test="prevauditnode != null">
+        PREVAUDITNODE = #{prevauditnode,jdbcType=VARCHAR},
+      </if>
+      <if test="prevaudituser != null">
+        PREVAUDITUSER = #{prevaudituser,jdbcType=VARCHAR},
+      </if>
+      <if test="optionitem != null">
+        OPTIONITEM = #{optionitem,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        SIGN = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="coauditorlist != null">
+        COAUDITORLIST = #{coauditorlist,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Repairs">
+    update t_repairs
+    set code = #{code,jdbcType=VARCHAR},
+      studid = #{studid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      patients_name = #{patientsName,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      symptom = #{symptom,jdbcType=VARCHAR},
+      dormitroy = #{dormitroy,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      DOMAINID = #{domainid,jdbcType=VARCHAR},
+      APPLICATIONID = #{applicationid,jdbcType=VARCHAR},
+      FORMID = #{formid,jdbcType=VARCHAR},
+      FORMNAME = #{formname,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      CREATED = #{created,jdbcType=DATE},
+      AUTHOR_DEPT_INDEX = #{authorDeptIndex,jdbcType=VARCHAR},
+      LASTMODIFIER = #{lastmodifier,jdbcType=VARCHAR},
+      LASTMODIFIED = #{lastmodified,jdbcType=DATE},
+      VERSIONS = #{versions,jdbcType=INTEGER},
+      ISTMP = #{istmp,jdbcType=DECIMAL},
+      PARENT = #{parent,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      STATEINT = #{stateint,jdbcType=INTEGER},
+      STATELABEL = #{statelabel,jdbcType=VARCHAR},
+      STATELABELINFO = #{statelabelinfo,jdbcType=VARCHAR},
+      AUDITORNAMES = #{auditornames,jdbcType=VARCHAR},
+      AUDITORLIST = #{auditorlist,jdbcType=VARCHAR},
+      AUDITUSER = #{audituser,jdbcType=VARCHAR},
+      AUDITDATE = #{auditdate,jdbcType=DATE},
+      LASTFLOWOPERATION = #{lastflowoperation,jdbcType=VARCHAR},
+      PREVAUDITNODE = #{prevauditnode,jdbcType=VARCHAR},
+      PREVAUDITUSER = #{prevaudituser,jdbcType=VARCHAR},
+      OPTIONITEM = #{optionitem,jdbcType=VARCHAR},
+      SIGN = #{sign,jdbcType=VARCHAR},
+      COAUDITORLIST = #{coauditorlist,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
